@@ -1,0 +1,32 @@
+:global int void
+:global int barrier
+:global int immortal
+:local double safety_margin
+
+isTowerTesting()
+
+safety_margin=0.1
+
+waituntil(cooldown(barrier) == 0.0)
+useinstant(barrier)
+gds("barrier cd", cooldown(barrier))
+waituntil((energy(true) > 0.71) & cooldown(void) >= 0.1)
+useinstant(immortal)
+gds("immortal cd", cooldown(immortal))
+
+wait_for_tb:
+  waituntil(cooldown(barrier) == 0.0 & \
+    (max(gdg("immortal cd"),5.0)-cooldown(immortal)) >= (5.0 - safety_margin))
+  useinstant(barrier)
+  gds("barrier cd", cooldown(barrier))
+
+wait_for_immortal:
+  waituntil(cooldown(immortal) == 0.0 & \
+    (max(gdg("barrier cd"),27.0)-cooldown(barrier)) >= (27.0 - safety_margin) & \
+	(energy(true) > 0.71) & \
+	cooldown(void) >= 0.1)
+  useinstant(immortal)
+  gds("immortal cd", cooldown(immortal))
+
+goto(wait_for_tb)
+  

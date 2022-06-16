@@ -1,0 +1,41 @@
+:global int barrier
+:global int recharge
+:global int awareness
+:global int floof
+:global int void
+:global int immortal
+:global int st2
+:global int rak
+
+gss("<size=0>void farm hide", "") ; put vars between here to hide
+barrier = 1
+recharge = 2
+awareness = 3
+floof = 4
+void = 6
+immortal = 7
+st2 = 8
+rak = 9
+
+; starting values for module cooldowns
+; allows (most of the time) to restart AI during a run
+; displayed value is always rounded down (41.87->41) so add 1
+gds("void cd", 42.0)
+gds("barrier cd", 49.0)
+gds("immortal cd", 28.0)
+
+; when to stop casting rak
+; ex: target cd=29.8, target cd var="void cd"
+; to stop once void can have 100% uptime
+; ex: target cd=15.0, target cd var="void cd"
+; to keep going until floof can also have 100% uptime
+; ex: target cd=31.8, target cd var="barrier cd"
+; for barrier to have 100% uptime
+gds("target cd", 29.8)
+gss("target cd var", "void cd")
+
+gds("time start", now()) ; for stat tracking
+gds("starting hp", health.max()); for stats, to compute current rak stacks
+gss("void farm var. hide end", "</size=0>") ; put vars between here to hide
+gis("rak-stack", 0) ; stats var set by other script (can be omitted if you don't want to hide)
+gis("rak casts", 0) ; stats var set by other script (can be omitted if you don't want to hide)

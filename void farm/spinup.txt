@@ -1,0 +1,21 @@
+:global int barrier
+:global int recharge
+:global int awareness
+:global int floof
+:global int void
+
+isTowerTesting()
+
+gotoif(wait_for_tank, cooldown(void) > (gdg("void cd") - 29.8))
+wait_for_void:
+  waituntil((cooldown(void) == 0.0) & (cooldown(barrier) <= 29.8))
+  useinstant(awareness)
+  useinstant(recharge)
+  useinstant(floof)
+  useposition(void, vec(0.0, 0.0))
+  gds("void cd", cooldown(void))
+wait_for_tank:
+  waituntil((cooldown(void) <= (max(gdg("void cd") - 29.8,0.0))) & (cooldown(barrier) == 0.0))
+  useinstant(barrier)
+  gds("barrier cd", cooldown(barrier))
+goto(wait_for_void)
