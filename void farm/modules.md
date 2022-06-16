@@ -56,6 +56,9 @@ infinity shield
 universal | universal
 rak's curse | active buff chance
 
+### General notes:
+Defiance: not included since it doesn't factor in TB so triggers all the time
+
 | contract | condition | current bp |
 | ----------- | ----------- | ----------- |
 glass cannon | defense modules <=1 | no.
