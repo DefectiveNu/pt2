@@ -1,0 +1,19 @@
+:global int recharge
+:global int awareness
+:global int floof
+:global int void
+
+:local int init
+
+isTowerTesting()
+
+
+gis("rak-stack", d2i(0.868589 * (((health.max()) / (gdg("starting hp") - 1.0)) // 2.718281828459))) ; stats
+
+main:
+  waituntil(cooldown(floof) == 0.0 & cooldown(void) == 0.0)
+  useinstant(awareness)
+  useinstant(recharge)
+  useinstant(floof)
+  useposition(void, vec(0.0, 0.0))
+  goto(main)
