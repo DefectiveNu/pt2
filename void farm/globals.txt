@@ -29,7 +29,7 @@ gds("immortal cd", 28.0)
 ; to stop once void can have 100% uptime
 ; ex: target cd=15.0, target cd var="floof"
 ; to keep going until floof can also have 100% uptime
-; ex: target cd=29.0, target cd var="barrier"
+; ex: target cd=31.8, target cd var="barrier"
 ; for barrier to have 100% uptime
 gds("target cd", 29.8)
 gss("target cd var", "void cd")
