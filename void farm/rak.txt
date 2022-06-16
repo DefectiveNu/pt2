@@ -10,12 +10,13 @@ main:
   waituntil(cooldown(rak) == 0.0)
   waituntil(energy(false) == energy.max())
   gotoif(main, cooldown(barrier) < 29.9 & cooldown(void) == 0.0) ; don't cast if void cycle is about to start
-  gotoif(99, gdg(gsg("target cd var")) < gdg("target cd"))
+  gotoif(skipcast, gdg(gsg("target cd var")) < gdg("target cd"))
   useinstant(st2)
   useinstant(rak)
-  
   gis("rak casts", gig("rak casts") + 1) ; stats
+
+skipcast:
   gis("rak-stack", if(health.max()>gdg("starting hp"), \
     d2i(0.868589 * (((health.max()) / (gdg("starting hp") - 1.0)) // 2.718281828459)),\
 	gig("rak-stack"))) ; stats
-  goto(main)
+  gotoif(main, gdg(gsg("target cd var")) >= gdg("target cd"))
