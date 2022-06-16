@@ -1,0 +1,33 @@
+:global string raks_log
+
+wakeup()
+game.newround()
+
+isTowerTesting()
+
+main:
+  executesync("void farm:globals")
+  execute("void farm:spinup")
+  execute("void farm:rak")
+  waituntil((health(false) == 0.0) | \
+    gdg("void cd") < 29.8)
+
+gotoif(end, (health(false) == 0.0))
+switch:
+  stop("void farm:spinup")
+  execute("void farm:everlasting void")
+  execute("void farm:everlasting tank")
+  waituntil(health(false) == 0.0)
+
+end:
+  ; stats output format
+  ; stacks earned:casts:time (sec)
+  raks_log = raks_log . (\
+    ((i2s(gig("rak-stack")) . ":")) . \
+	i2s(gig("rak casts")) . ":" . \
+	i2s(d2i((now() - gdg("time start"))/10000000.0)) . \
+	", ")
+  stop("void farm:rak")
+  stop("void farm:spinup")
+  stop("void farm:everlasting tank")
+  stop("void farm:everlasting void")
